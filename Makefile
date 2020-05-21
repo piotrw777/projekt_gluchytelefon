@@ -1,23 +1,26 @@
 CFLAGS=-pthread -g -Wpedantic -Wall -Werror -pedantic-errors -std=c11
 
-all:	program1.o program2.o program3.o
+all:	prog1.o prog2.o prog3.o
 
-program1.o:	program1.c funkcje_pom.h
-	gcc $(CFLAGS) program1.c -o prog1.o
+prog1.o:	program1.c funkcje_pom.h
 	@echo Kompilacja programu 1
+	gcc $(CFLAGS) program1.c -o prog1.o
+	
 
-program2.o:	program2.c funkcje_pom.h
-	gcc $(CFLAGS) program2.c -o prog2.o
+prog2.o:	program2.c funkcje_pom.h
 	@echo Kompilacja programu 2
+	gcc $(CFLAGS) program2.c -o prog2.o
+	
 
-program3.o:	program3.c funkcje_pom.h
-	gcc $(CFLAGS) program3.c -o prog3.o
+prog3.o:	program3.c funkcje_pom.h
 	@echo Kompilacja programu 3
+	gcc $(CFLAGS) program3.c -o prog3.o
 	
 run:
-	./prog1.o
 	@echo Uruchomienie programu 1
+	./prog1.o
 
 clean:
-	rm -v *.o 
 	@echo Usuwam pliki wykonywalne
+	rm -v *.o 
+	
