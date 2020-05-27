@@ -6,14 +6,14 @@
 /***************
 ****program1****
 ***************/
-
 int main(void) {
 	int liczba;
 	char string[10];
+
 	char string_wywolania[20]="./prog2.o ";
 	char *arg_wsk = string_wywolania + 10;
 
-	printf("**********\nWitam w programie1!\n**********\n");
+	printf("**********\nWitam w programie1!\n***********\n");
 	printf("Podaj liczbę całkowitą: ");
 	scanf("%d", &liczba);
 	fflush(stdout);
@@ -22,4 +22,6 @@ int main(void) {
 	printf("Liczba w postaci strigu to %s\n",string);
 	strcpy(arg_wsk,string);
 	system(string_wywolania);
+
+
 }
