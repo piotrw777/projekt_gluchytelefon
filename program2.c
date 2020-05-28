@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "funkcje_pom.h"
+#include <math.h>
+
+typedef int bool;
 
 /***************
 ****program2****
