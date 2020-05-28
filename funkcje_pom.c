@@ -6,6 +6,7 @@
 
 void powitanie(int numer_prog, int stars) {
 	int k;
+	printf("\n\n");
 	for(k = 0; k < stars; k++) {
 		printf("*");
 	}
@@ -13,7 +14,7 @@ void powitanie(int numer_prog, int stars) {
 	for(k = 0; k < stars; k++) {
 		printf("*");
 	}
-	printf("\n");
+	printf("\n\n");
 }
 void run_prog_with_args(char program[], char  argument[]) {
 	char string_wywolania[20]="./";

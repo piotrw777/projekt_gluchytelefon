@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 				printf("Następna liczba pierwsza to: %d\n", wynik);
 				printf("Uruchamiam program 3 z argumentem %s\n", string_wynik);
 				
-				run_prog_with_args("prog3.o", string_wynik);
+				run_prog_with_args("prog3.out", string_wynik);
                 break;
         }
     }
