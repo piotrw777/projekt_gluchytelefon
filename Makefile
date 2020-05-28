@@ -1,5 +1,5 @@
-CFLAGS=-pthread -g -Wpedantic -Wall -Werror -pedantic-errors -std=c11 
-
+CFLAGS=-pthread -g -Wpedantic -Wall  -pedantic-errors -std=c11 
+#CFLAGS=-pthread -g -Wpedantic -Wall -Werror -pedantic-errors -std=c11 
 all:	prog1.o prog2.o prog3.o 
 
 prog1.o:	program1.c 
