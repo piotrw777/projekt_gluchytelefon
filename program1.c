@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "funkcje_pom.h"
-//Cześć, tu Windows 10!!!
+
 /***************
 ****program1****
 ***************/
@@ -37,6 +37,4 @@ int main(void) {
 	}
 	//run_prog_with_args("prog2.o",string);
 
-
-	
 }

@@ -4,6 +4,7 @@
 #include <math.h>
 #include "funkcje_pom.h"
 
+
 void powitanie(int numer_prog, int stars) {
 	int k;
 	printf("\n\n");
