@@ -14,7 +14,7 @@ int main(void) {
 	//printf("**************\nWitam w programie1!\n**************\n\n");
 	powitanie(1,20);
 	while(1) {
-		printf("Tu program 1 \n\nPodaj liczbę całkowitą: ");
+		printf("Tu program 1: Podaj liczbę całkowitą: ");
 
 		//wczytujemy liczbę
 		scanf("%u", &liczba);
@@ -30,11 +30,11 @@ int main(void) {
 		//modyfikacja liczby
 		wynik = liczba % 10;
 
-		printf("Liczba po modyfikacji: %d\n", wynik);
+		printf("Liczba po modyfikacji: %d (mod 10)\n", wynik);
 		//wywołanie programu 2
 		printf("Uruchamiam program 2 z argumentem %d\n", wynik);
+		//run_prog_with_args("prog2.out",string);
 		run_prog_with_opt("prog2.out","o",string);
 	}
-	//run_prog_with_args("prog2.o",string);
 
 }

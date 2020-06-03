@@ -14,12 +14,6 @@
 int main(int argc, char* argv[]) {
 	powitanie(3,20);
 	
-	
-	//char *out_path = "./prog3out.txt";
-    //FILE *plik_out;
-    //plik_out = fopen(out_path,"w");
-    //fprintf(plik_out,"hej, tu program 3");
-
 	//odczytujemy liczbę z FIFO
 	char *fifo_path = "/tmp/myfifo";
 	char buf[10];
@@ -34,8 +28,7 @@ int main(int argc, char* argv[]) {
 
 	int liczba = atoi(buf);
 	printf("Otrzymana liczba: %d\n", liczba);
-	int wynik = (1 << liczba);
-	printf("Liczba po modyfikacji: %d (odwrócenie bitów)\n",wynik);
+	printf("Liczba po modyfikacji: %d (ustawienie bitu)\n", 1 << liczba);
 	
 	//fclose(plik_out);
 }

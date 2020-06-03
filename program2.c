@@ -36,6 +36,8 @@ int main(int argc, char* argv[]) {
     //fprintf(plik_out,"hej, tu program 2\n");
     
     char *fifo_path = "/tmp/myfifo";
+    
+    //int liczba = atoi(argv[1]);
     int liczba = parseCmdOption(argc, argv);
 	int wynik = next_prime(liczba);
     char string_wynik[10];
@@ -50,21 +52,38 @@ int main(int argc, char* argv[]) {
     
   	//zapis do FIFO
 	int fd;
-    
-  
-    
     unlink(fifo_path);
 	mkfifo(fifo_path,0666);
-    printf("Tuż przed mkfifoopen (prog2)\n");
-    fd = open(fifo_path,O_WRONLY);
+
     //fprintf(plik_out, "\nCONTROL LINEv4\n");
     //fclose(plik_out);
-    if (write(fd, string_wynik,sizeof(string_wynik)) < 0) {
+  
+    pid_t pid;
+    if ((pid = fork()) == -1)
+    {
+        perror("Fork error");
+        exit(0);
+    }
+    else {
+    
+        if (pid == 0) {
+            printf("Jestem dzieckiem prog 2\n");
+            // close exit
+            fd = open(fifo_path,O_WRONLY);
+            if (write(fd, string_wynik,sizeof(string_wynik)) < 0) {
                 perror("Error writing to FIFO - program 2");
                 exit(0);
-     }
-
-    close(fd);
+            }
+            close(fd);
+            exit(0);
+         }
+        else {
+            printf("Jestem rodzicem prog2");
+        }
+    }
+    
     printf("Uruchamiam program 3, zapisano liczbę %s do FIFO",string_wynik);
-    execl("./prog3.out","software", NULL);
+    sleep(1);
+    execl("./prog3.out", "software", NULL);
+
 }

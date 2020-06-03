@@ -69,4 +69,27 @@ int next_prime(int n) {
 	return k;
 }
 
+bool read_bit(int * n, int position) {
+	return !!(*n & (1 << position));
+}
 
+void reverse_bits(int * n) {
+	int k;
+	for(k = 0; k < 16; k++) {
+		if( read_bit(n, k) != read_bit(n, 31- k)  ) {
+			*n ^= (1 << k);
+			*n ^= (1 << (31 - k));
+		}
+	}
+}
+
+void print_bits(int * n) {
+	int k;
+	for(k = 31; k >= 0; k--) {
+		printf("%d", read_bit(n, k));
+		if(k % 4 == 0) {
+			printf(" ");
+		}
+	}
+	printf("\n");
+}
