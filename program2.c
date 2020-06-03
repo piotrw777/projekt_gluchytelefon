@@ -5,6 +5,7 @@
 #include <unistd.h>  //dla getopt
 #include <sys/types.h> // dla mkfifo
 #include <sys/stat.h>  // dla mkfifo
+#include <getopt.h>
 #include "funkcje_pom.h"
 
 /***************
@@ -40,7 +41,7 @@ int main(int argc, char* argv[]) {
     char string_wynik[10];
     sprintf(string_wynik,"%d",wynik);
  
- 	//powitanie(2,20);
+ 	powitanie(2,20);
 
     printf("Otrzymana liczba: %d\n", liczba);
     //fprintf(plik_out,"\nOtrzymana liczba: %d\n", liczba);
@@ -62,7 +63,7 @@ int main(int argc, char* argv[]) {
                 perror("Error writing to FIFO - program 2");
                 exit(0);
      }
-       
+
     close(fd);
     printf("Uruchamiam program 3, zapisano liczbę %s do FIFO",string_wynik);
     execl("./prog3.out","software", NULL);
