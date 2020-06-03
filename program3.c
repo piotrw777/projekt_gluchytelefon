@@ -11,23 +11,31 @@
 ****program3****
 ***************/
 
-int main() {
+int main(int argc, char* argv[]) {
 	powitanie(3,20);
-	int fd;
+	
+	
+	//char *out_path = "./prog3out.txt";
+    //FILE *plik_out;
+    //plik_out = fopen(out_path,"w");
+    //fprintf(plik_out,"hej, tu program 3");
+
+	//odczytujemy liczbę z FIFO
 	char *fifo_path = "/tmp/myfifo";
 	char buf[10];
-	mkfifo(fifo_path, 0777);
-
+	int fd;
 	fd = open(fifo_path, O_RDONLY);
-	read(fd, buf,sizeof(buf));
+	if (read(fd, buf,sizeof(buf)) < 0) {
+		perror("Błąd czytania z FIFO - program 3");
+		exit(0);
+	}
 	close(fd);
+	unlink(fifo_path);
+
 	int liczba = atoi(buf);
-	int wyjscie = (1 << liczba);
-	wyjscie = wyjscie + 1 - 1;
-
-
-	fflush(NULL);
-
-	printf("Liczba z fifo to: %s (string), %d( liczba)\n",buf,atoi(buf));
-	printf("Ustawiam bit na miejscu %d. Wynik: %d\n",liczba,1 << liczba);
+	printf("Otrzymana liczba: %d\n", liczba);
+	int wynik = (1 << liczba);
+	printf("Liczba po modyfikacji: %d (odwrócenie bitów)\n",wynik);
+	
+	//fclose(plik_out);
 }

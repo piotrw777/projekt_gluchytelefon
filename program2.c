@@ -11,49 +11,59 @@
 ****program2****
 ***************/
 
-int main(int argc, char* argv[]) {
-	int opt;
-	char string_wynik[10] = "";
-	int wynik;
-	int stop;
-
-	//tworzenie FIFO
-	int fd;
-    char *fifo_path = "/tmp/myfifo";
-	printf("Jestem przed mkfifo\n");
-	mkfifo(fifo_path,0777);
-	printf("Jestem po mkfifo\n");
-	fflush(stdout);
-	powitanie(2,20);
-
-	while( (opt = getopt(argc, argv, ":abco:")) != -1 ) {
-		switch(opt) {
-            case 'a':
-            case 'b':
-            case 'c':
-                printf("Wybrano opcję: %c\nNic nie robię", opt);
-                break;
+int parseCmdOption(int argc, char *argv[]) {
+    int param;
+    int number = 0;
+    while ((param = getopt(argc, argv, "ho:")) != -1) {
+        switch (param) {
             case 'o':
-				fflush(stdout);
-                printf("Argument z opcji to: %s\n", optarg);
-				wynik = next_prime(atoi(optarg));
-				sprintf(string_wynik,"%d",wynik);
-                fflush(stdout);
-				fflush(NULL);
-				//zapis do FIFO
-				fd = open(fifo_path,O_WRONLY);
-				write(fd, string_wynik,sizeof(string_wynik));
-				close(fd);
-
-				fflush(stdout);
-				fflush(NULL);
-				printf("Następna liczba pierwsza to: %d\nUruchamiam program 3", wynik);
-				//scanf("%d", &stop);
-				system("./prog3.out");
-				fflush(stdout);
-				fflush(NULL);
+                number = atoi(optarg);
+                return number;
+                break;
+            case 'h':
+                printf("POMON PROGRAMU 2");
                 break;
         }
     }
+    return -1;
+}
 
+int main(int argc, char* argv[]) {
+    //char *out_path = "./prog2out.txt";
+    //FILE *plik_out;
+    //plik_out = fopen(out_path,"w");
+    //fprintf(plik_out,"hej, tu program 2\n");
+    
+    char *fifo_path = "/tmp/myfifo";
+    int liczba = parseCmdOption(argc, argv);
+	int wynik = next_prime(liczba);
+    char string_wynik[10];
+    sprintf(string_wynik,"%d",wynik);
+ 
+ 	//powitanie(2,20);
+
+    printf("Otrzymana liczba: %d\n", liczba);
+    //fprintf(plik_out,"\nOtrzymana liczba: %d\n", liczba);
+    printf("Liczba po modyfikacji: %d (następna liczba pierwsza)\n",wynik);
+    //fprintf(plik_out, "Liczba po modyfikacji: %d (następna liczba pierwsza)\n",wynik);
+    
+  	//zapis do FIFO
+	int fd;
+    
+  
+    
+    unlink(fifo_path);
+	mkfifo(fifo_path,0666);
+    printf("Tuż przed mkfifoopen (prog2)\n");
+    fd = open(fifo_path,O_WRONLY);
+    //fprintf(plik_out, "\nCONTROL LINEv4\n");
+    //fclose(plik_out);
+    if (write(fd, string_wynik,sizeof(string_wynik)) < 0) {
+                perror("Error writing to FIFO - program 2");
+                exit(0);
+     }
+       
+    close(fd);
+    printf("Uruchamiam program 3, zapisano liczbę %s do FIFO",string_wynik);
+    execl("./prog3.out","software", NULL);
 }
