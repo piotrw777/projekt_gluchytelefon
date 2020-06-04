@@ -11,6 +11,6 @@ int next_prime(int n);
 bool read_bit(int * n, int position);
 void reverse_bits(int * n);
 void print_bits(int * n);
-
+int suma_cyfr(unsigned int n);
 
 #endif// __FUNKCJE_POM

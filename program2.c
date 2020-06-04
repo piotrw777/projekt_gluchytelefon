@@ -65,8 +65,7 @@ int main(int argc, char* argv[]) {
         exit(0);
     }
     else {
-    
-        if (pid == 0) {
+		if (pid == 0) {
             printf("Jestem dzieckiem prog 2\n");
             // close exit
             fd = open(fifo_path,O_WRONLY);

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "funkcje_pom.h"
 
+
 /***************
 ****program1****
 ***************/
@@ -11,7 +12,6 @@ int main(void) {
 	unsigned int liczba;
 	int wynik;
 	char string[10];
-	//printf("**************\nWitam w programie1!\n**************\n\n");
 	powitanie(1,20);
 	while(1) {
 		printf("Tu program 1: Podaj liczbę całkowitą: ");

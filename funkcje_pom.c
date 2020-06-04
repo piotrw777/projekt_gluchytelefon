@@ -32,7 +32,6 @@ void run_prog_with_opt(char program[], char opcja[], char  argument[]) {
 	char * wsk_pom = string_wywolania + strlen(string_wywolania);
 	strcpy(wsk_pom, program);
 	wsk_pom = string_wywolania + strlen(string_wywolania);
-	wsk_pom = string_wywolania + strlen(string_wywolania);
 	strcpy(wsk_pom, " -");
 	wsk_pom = string_wywolania + strlen(string_wywolania);
 	strcpy(wsk_pom, opcja);
@@ -59,12 +58,14 @@ bool is_prime(int n) {
 	return 1;
 }
 int next_prime(int n) {
-	if(n == 1) return 2;
+	if(n < 2) return 2;
 	if(n == 2) return 3;
 
 	int k = n + 1 + n%2;
 
-	while(is_prime(k) == 0) k++;
+	while(is_prime(k) == 0) {
+		k += 2;
+	}
 
 	return k;
 }
@@ -93,3 +94,14 @@ void print_bits(int * n) {
 	}
 	printf("\n");
 }
+
+int suma_cyfr(unsigned int n) {
+	int s = n % 10;
+	while(n > 9) {
+		n /= 10;
+		s += n % 10;
+	}
+	return s;
+}
+
+

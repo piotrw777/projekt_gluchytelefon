@@ -12,6 +12,8 @@
 ***************/
 
 int main(int argc, char* argv[]) {
+	int wynik;
+	char string_wynik[10];
 	powitanie(3,20);
 	
 	//odczytujemy liczbę z FIFO
@@ -27,8 +29,14 @@ int main(int argc, char* argv[]) {
 	unlink(fifo_path);
 
 	int liczba = atoi(buf);
+	wynik = 1 << liczba;
+	sprintf(string_wynik, "%d", wynik);
+
 	printf("Otrzymana liczba: %d\n", liczba);
 	printf("Liczba po modyfikacji: %d (ustawienie bitu)\n", 1 << liczba);
-	
+
+	//wywołanie programu 6
+	printf("Uruchamiam program 6 z argumentem %d\n", wynik);
+	run_prog_with_args("prog6.out",string_wynik);
 	//fclose(plik_out);
 }
