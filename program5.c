@@ -4,21 +4,25 @@
 ****program5****
 ***************/
 
+void modyfikuj5(unsigned int liczba, unsigned int * wynik, char * string );
+
 int main(int argc, char *argv[]) {
+    //deklaracje
+	unsigned int liczba = atoi(argv[1]);
+	unsigned int wynik;
+    char string_wynik[10];
 
     powitanie(5,20);
-	int liczba = atoi(argv[1]);
-	int wynik = suma_cyfr(liczba);
 
-    printf("Otrzymana liczba: %d\n", liczba);
-    printf("Liczba po modyfikacji: %d (suma cyfr)\n", wynik);
+    //odbieramy liczbę
+    liczba = atoi(argv[1]);
 
-	char string_wynik[10];
-	memset(string_wynik,0,10);
-	sprintf(string_wynik, "%d", wynik);
+    //modyfikacja
+    modyfikuj5(liczba, &wynik, string_wynik);
 
-    pid_t pid;
-    pid = fork();
+    komunikat(5, liczba, wynik);
+
+    pid_t pid = fork();
     if(pid < 0) {
         perror("Blad fork");
     }
@@ -35,3 +39,8 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
+void modyfikuj5(unsigned int liczba, unsigned int * wynik, char * string ) {
+    *wynik = suma_cyfr(liczba);
+    memset(string, 0, 10);
+    sprintf(string, "%u", *wynik);
+}

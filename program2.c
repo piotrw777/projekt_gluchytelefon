@@ -4,28 +4,30 @@
 ****program2****
 ***************/
 
+void modyfikuj2(unsigned int liczba, unsigned int * wynik, char * string );
+
 int main(int argc, char* argv[]) {
+    //deklaracje
+	unsigned int liczba;
+	unsigned int wynik;
+	char string_wynik[10];
 
     powitanie(2,20);
 
-    char *fifo_path = "/tmp/myfifo";
+    //wczytujemy liczbę
+    liczba = parseCmdOption(argc, argv);
 
-    int liczba = parseCmdOption(argc, argv);
-	int wynik = next_prime(liczba);
-    char string_wynik[10];
-    sprintf(string_wynik,"%d",wynik);
+    //modyfikacja liczby
+    modyfikuj2(liczba, &wynik, string_wynik);
 
-    printf("Otrzymana liczba: %d\n", liczba);
-    printf("Liczba po modyfikacji: %d (następna liczba pierwsza)\n",wynik);
+    komunikat(2, liczba, wynik);
 
   	//zapis do FIFO
 	int fd;
     unlink(fifo_path);
-	mkfifo(fifo_path,0666);
+	mkfifo(fifo_path, 0777);
 
-    pid_t pid;
-    pid = fork();
-
+    pid_t pid = fork();
     if (pid == -1) {
         perror("Fork error");
         exit(0);
@@ -48,4 +50,10 @@ int main(int argc, char* argv[]) {
             sleep(SLEEP_TIME);
             execl("./prog3.out", "software", NULL);
         }
+}
+
+void modyfikuj2(unsigned int liczba, unsigned int * wynik, char * string ) {
+     *wynik = next_prime(liczba);
+     memset(string, 0, 10);
+     sprintf(string, "%u", *wynik);
 }

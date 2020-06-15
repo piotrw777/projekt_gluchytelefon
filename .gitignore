@@ -9,3 +9,5 @@ main programu 5.txt
 default.workspace
 default.workspace.layout
 funkcje_pom.o
+*.o
+funkcje_pom.c.save-failed

@@ -1,5 +1,7 @@
 #include "funkcje_pom.h"
 
+char * opis[] = {NULL, "(mod 10)", "(następna liczba pierwsza)", "(ustawienie bitu)", "(odbicie bitów)", "(suma cyfr)", "(razy 2)"};
+
 void powitanie(int numer_prog, int stars) {
 	int k;
 	printf("\n\n");
@@ -11,6 +13,10 @@ void powitanie(int numer_prog, int stars) {
 		printf("*");
 	}
 	printf("\n\n");
+}
+void komunikat(int numer, unsigned int liczba, unsigned int wynik) {
+     printf("Podałeś liczbę %d\n",liczba);
+     printf("Liczba po modyfikacji: %d %s\n", wynik, opis[numer]);
 }
 void run_prog_with_args(char program[], char  argument[]) {
 	char string_wywolania[20]="./";
@@ -65,11 +71,11 @@ int next_prime(int n) {
 	return k;
 }
 
-bool read_bit(int * n, int position) {
+bool read_bit(unsigned int * n, int position) {
 	return !!(*n & (1 << position));
 }
 
-void reverse_bits(int * n) {
+void reverse_bits(unsigned int * n) {
 	int k;
 	for(k = 0; k < 16; k++) {
 		if( read_bit(n, k) != read_bit(n, 31- k)  ) {
@@ -79,7 +85,7 @@ void reverse_bits(int * n) {
 	}
 }
 
-void print_bits(int * n) {
+void print_bits(unsigned int * n) {
 	int k;
 	for(k = 31; k >= 0; k--) {
 		printf("%d", read_bit(n, k));
@@ -177,10 +183,9 @@ int receive_by_localhost(char * NR_PORTU) {
 
 void send_by_localhost(const int number, int program, char * NR_PORTU) {
 
-    char string_wynik[10];
-    memset(string_wynik,0,10);
+    char string_wynik[32];
+    memset(string_wynik,0,32);
     sprintf(string_wynik, "%d", number);
-
 
     int gniazdo, gniazdo2;
 	struct sockaddr_in adres;
