@@ -1,0 +1,11 @@
+
+job/
+*.o
+*.out
+server.c
+program7.c
+main programu 5.txt
+*.o
+default.workspace
+default.workspace.layout
+funkcje_pom.o

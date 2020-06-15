@@ -1,72 +1,37 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>  //dla getopt
-#include <sys/types.h> // dla mkfifo
-#include <sys/stat.h>  // dla mkfifo
-#include <getopt.h>
 #include "funkcje_pom.h"
 
 /***************
 ****program2****
 ***************/
 
-int parseCmdOption(int argc, char *argv[]) {
-    int param;
-    int number = 0;
-    while ((param = getopt(argc, argv, "ho:")) != -1) {
-        switch (param) {
-            case 'o':
-                number = atoi(optarg);
-                return number;
-                break;
-            case 'h':
-                printf("POMON PROGRAMU 2");
-                break;
-        }
-    }
-    return -1;
-}
-
 int main(int argc, char* argv[]) {
-    //char *out_path = "./prog2out.txt";
-    //FILE *plik_out;
-    //plik_out = fopen(out_path,"w");
-    //fprintf(plik_out,"hej, tu program 2\n");
-    
+
+    powitanie(2,20);
+
     char *fifo_path = "/tmp/myfifo";
-    
-    //int liczba = atoi(argv[1]);
+
     int liczba = parseCmdOption(argc, argv);
 	int wynik = next_prime(liczba);
     char string_wynik[10];
     sprintf(string_wynik,"%d",wynik);
- 
- 	powitanie(2,20);
 
     printf("Otrzymana liczba: %d\n", liczba);
-    //fprintf(plik_out,"\nOtrzymana liczba: %d\n", liczba);
     printf("Liczba po modyfikacji: %d (następna liczba pierwsza)\n",wynik);
-    //fprintf(plik_out, "Liczba po modyfikacji: %d (następna liczba pierwsza)\n",wynik);
-    
+
   	//zapis do FIFO
 	int fd;
     unlink(fifo_path);
 	mkfifo(fifo_path,0666);
 
-    //fprintf(plik_out, "\nCONTROL LINEv4\n");
-    //fclose(plik_out);
-  
     pid_t pid;
-    if ((pid = fork()) == -1)
-    {
+    pid = fork();
+
+    if (pid == -1) {
         perror("Fork error");
         exit(0);
     }
-    else {
-		if (pid == 0) {
-            printf("Jestem dzieckiem prog 2\n");
+    else if (pid == 0) {
+            //printf("Jestem dzieckiem prog 2\n");
             // close exit
             fd = open(fifo_path,O_WRONLY);
             if (write(fd, string_wynik,sizeof(string_wynik)) < 0) {
@@ -77,12 +42,10 @@ int main(int argc, char* argv[]) {
             exit(0);
          }
         else {
+            fflush(stdout);
             printf("Jestem rodzicem prog2");
+            fprintf(stderr,"Uruchamiam program 3, zapisano liczbę %s do FIFO",string_wynik);
+            sleep(SLEEP_TIME);
+            execl("./prog3.out", "software", NULL);
         }
-    }
-    
-    printf("Uruchamiam program 3, zapisano liczbę %s do FIFO",string_wynik);
-    sleep(1);
-    execl("./prog3.out", "software", NULL);
-
 }
