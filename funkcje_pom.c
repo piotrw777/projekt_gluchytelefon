@@ -15,8 +15,8 @@ void powitanie(int numer_prog, int stars) {
 	printf("\n\n");
 }
 void komunikat(int numer, unsigned int liczba, unsigned int wynik) {
-     printf("Podałeś liczbę %d\n",liczba);
-     printf("Liczba po modyfikacji: %d %s\n", wynik, opis[numer]);
+     printf("Podałeś liczbę %u\n",liczba);
+     printf("Liczba po modyfikacji: %u %s\n", wynik, opis[numer]);
 }
 void run_prog_with_args(char program[], char  argument[]) {
 	char string_wywolania[50]="./";

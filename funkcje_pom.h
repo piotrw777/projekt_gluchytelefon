@@ -1,6 +1,7 @@
 #ifndef __FUNKCJE_POM
 #define __FUNKCJE_POM
 
+#define UINT_MAX_STR "4294967295"
 #define PORT_A "6000"
 #define PORT_B "7000"
 #define MAXDATASIZE 100
