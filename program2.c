@@ -4,6 +4,8 @@
 ****program2****
 ***************/
 
+bool is_prime(int n);
+int next_prime(int n);
 void modyfikuj2(unsigned int liczba, unsigned int * wynik, char * string );
 
 int main(int argc, char* argv[]) {
@@ -48,7 +50,7 @@ int main(int argc, char* argv[]) {
             printf("Jestem rodzicem prog2");
             fprintf(stderr,"Uruchamiam program 3, zapisano liczbę %s do FIFO",string_wynik);
             sleep(SLEEP_TIME);
-            execl("./prog3.out", "software", NULL);
+            execl("./executables/prog3.out", "software", NULL);
         }
 }
 
@@ -56,4 +58,34 @@ void modyfikuj2(unsigned int liczba, unsigned int * wynik, char * string ) {
      *wynik = next_prime(liczba);
      memset(string, 0, 10);
      sprintf(string, "%u", *wynik);
+}
+
+bool is_prime(int n) {
+	if(n < 2) return 0;
+	if(n == 2) return 1;
+	//jeśli parzysta zwróć fałsz
+	if(n % 2 == 0) return 0;
+
+	int k_max = (int) sqrt(n) + 1;
+	int k = 3;
+	while(k < k_max) {
+		if((n % k) == 0) {
+			return 0;
+		}
+		k += 2;
+	}
+	return 1;
+}
+
+int next_prime(int n) {
+	if(n < 2) return 2;
+	if(n == 2) return 3;
+
+	int k = n + 1 + n%2;
+
+	while(is_prime(k) == 0) {
+		k += 2;
+	}
+
+	return k;
 }

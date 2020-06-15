@@ -5,6 +5,7 @@
 ***************/
 
 void modyfikuj5(unsigned int liczba, unsigned int * wynik, char * string );
+int suma_cyfr(unsigned int n);
 
 int main(int argc, char *argv[]) {
     //deklaracje
@@ -33,12 +34,20 @@ int main(int argc, char *argv[]) {
     else {
         fprintf(stderr,"Uruchamiam program 6. Wysłano liczbę %d przez TCP STREM", wynik);
         sleep(SLEEP_TIME);
-        execl("./prog6.out", "0", NULL);
+        execl("./executables/prog6.out", "0", NULL);
     }
 
 	return 0;
 }
 
+int suma_cyfr(unsigned int n) {
+	int s = n % 10;
+	while(n > 9) {
+		n /= 10;
+		s += n % 10;
+	}
+	return s;
+}
 void modyfikuj5(unsigned int liczba, unsigned int * wynik, char * string ) {
     *wynik = suma_cyfr(liczba);
     memset(string, 0, 10);

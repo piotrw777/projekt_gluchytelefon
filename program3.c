@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 	//wywołanie programu 4
 	printf("Uruchamiam program 4 z argumentem %d\n", wynik);
 	sleep(SLEEP_TIME);
-	run_prog_with_args("prog4.out",string_wynik);
+	run_prog_with_args("executables/prog4.out",string_wynik);
 }
 void odbierz3(unsigned int * liczba) {
     char buf[10];

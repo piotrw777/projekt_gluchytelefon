@@ -29,7 +29,7 @@ int main(void) {
 		//wywołanie programu 2
 		printf("Uruchamiam program 2 z argumentem %d\n", wynik);
 		sleep(SLEEP_TIME);
-		run_prog_with_opt("prog2.out","o",string_wynik);
+		run_prog_with_opt("executables/prog2.out","o",string_wynik);
 	}
 
 }

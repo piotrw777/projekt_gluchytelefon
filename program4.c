@@ -5,6 +5,9 @@
 ***************/
 
 void modyfikuj4(unsigned int liczba, unsigned int * wynik, char * string );
+bool read_bit(unsigned int * n, int position);
+void reverse_bits(unsigned int * n);
+void print_bits(unsigned int * n);
 
 int main(int argc, char *argv[]) {
     //deklaracje
@@ -21,13 +24,40 @@ int main(int argc, char *argv[]) {
     modyfikuj4(liczba, &wynik, string_wynik);
 
 	komunikat(4, liczba, wynik);
+    printf("Liczba wejściowa w postaci binarnej:\n");
+    print_bits(&liczba);
+    printf("Liczba wyjściowa w postaci binarnej:\n");
+    print_bits(&wynik);
 
     printf("Uruchamiam program 5 z argumentem %d\n", wynik);
     sleep(SLEEP_TIME);
-	run_prog_with_args("prog5.out",string_wynik);
+	run_prog_with_args("executables/prog5.out",string_wynik);
 	return 0;
 }
 
+bool read_bit(unsigned int * n, int position) {
+	return !!(*n & (1 << position));
+}
+
+void reverse_bits(unsigned int * n) {
+	int k;
+	for(k = 0; k < 16; k++) {
+		if( read_bit(n, k) != read_bit(n, 31- k)  ) {
+			*n ^= (1 << k);
+			*n ^= (1 << (31 - k));
+		}
+	}
+}
+void print_bits(unsigned int * n) {
+	int k;
+	for(k = 31; k >= 0; k--) {
+		printf("%d", read_bit(n, k));
+		if(k % 4 == 0) {
+			printf(" ");
+		}
+	}
+	printf("\n");
+}
 void modyfikuj4(unsigned int liczba, unsigned int * wynik, char * string ) {
     *wynik = liczba;
     reverse_bits(wynik);
