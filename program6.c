@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
+#include <string.h>
 #include "funkcje_pom.h"
 #define PORT_A  6000
 
@@ -18,12 +19,15 @@ int main(int argc, char *argv[])
 	int liczba = atoi(argv[1]);
 	int wynik = 2 * liczba ;
 	char string_wynik[10];
+	char komunikat[1024] = "\nWiadomość od serwera programu nr 6: ";
+	memset(string_wynik,0,10);
 	sprintf(string_wynik, "%d", wynik);
+	strcat(komunikat, string_wynik);
+	strcat(komunikat, "\n***********\n");
 
 	int gniazdo, gniazdo2;
 	struct sockaddr_in adres;
 	struct sockaddr_in adres_zew;
-	char buf[1024];
 	int nbytes;
 	socklen_t addrlen;
 	int yes = 1;
@@ -41,26 +45,23 @@ int main(int argc, char *argv[])
 	adres.sin_addr.s_addr=INADDR_ANY;
 	memset(&(adres.sin_zero),0,8);
 
-
-
 	setsockopt(gniazdo, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
 
 	if(bind(gniazdo,(struct sockaddr*)&adres, sizeof(adres)) == -1) {
-		perror("Blad bind");
+		perror("Błąd bind");
 		close(gniazdo);
 		exit(1);
 	}
-	
+
 	if( listen(gniazdo, 10) == -1){
-		perror("Blad listen");
+		perror("Błąd listen");
 		close(gniazdo);
 		exit(1);
 	}
-	
-	printf("Serwer dziala. Aby sprawdzić w drugiej konsoli wpisz polecenie:\n");
+
+	printf("Serwer dziala. Aby odebrać komunikat uruchom drugą konsolę i wykonaj polecenie:\n");
 	printf("telnet localhost %d\n", PORT_A);
-	printf(",a następnie wpisz tam dowolny ciag znakow i zatwierdz klawiszem Enter.\n");
-	
+
 	addrlen = sizeof(struct sockaddr_in);
 	gniazdo2 = accept(gniazdo, (struct sockaddr *)&adres_zew, &addrlen);
 
@@ -72,28 +73,18 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	if ((nbytes = recv(gniazdo2, buf, sizeof(buf), 0) <= 0 )) {
-		perror("Blad recv");
+    pid_t pid;
+    pid = fork();
+	if(pid == 0) {
+        close(gniazdo);
+        if (send(gniazdo2, komunikat, sizeof(komunikat), 0) == -1) {
+            perror("Błąd send");
        		close(gniazdo);
-		close(gniazdo2);
-	 	exit(1);
+            close(gniazdo2);
+            exit(1);
+        }
 	}
-	
-	printf("Komunikat od klienta: %s\n", buf);
-
-	if (send(gniazdo2, buf, strlen(buf), 0) == -1) {
-		perror("Blad send");
-       		close(gniazdo);
-		close(gniazdo2);
-	 	exit(1);
-	}
-
 	close(gniazdo2);
-	close(gniazdo);
 
 	return 0;
 }
-
-
-
-
