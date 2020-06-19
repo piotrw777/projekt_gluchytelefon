@@ -7,6 +7,7 @@
 #define MAXDATASIZE 100
 #define SLEEP_TIME 2
 #define fifo_path "/tmp/myfifo"
+#define chardev_path "/dev/jajko"
 
 #include <arpa/inet.h>
 #include <errno.h>

@@ -1,6 +1,7 @@
 CFLAGS=-pthread -g -Wpedantic -Wall -pedantic-errors 
+JAJKO=modul_jajko
 
-all:	prog1.out prog2.out prog3.out prog4.out prog5.out prog6.out
+all:	prog1.out prog2.out prog3.out prog4.out prog5.out prog6.out module
 
 prog1.out:	prog1.o funkcje_pom.o
 	@echo Linkowanie programu 1
@@ -56,12 +57,16 @@ prog6.o:	program6.c funkcje_pom.h
 funkcje_pom.o:	funkcje_pom.c funkcje_pom.h
 	@echo Kompilacja pliu z funkcjami
 	gcc $(CFLAGS) -c funkcje_pom.c -o ./compiled/funkcje_pom.o 
+
+module:
+	cd $(JAJKO) && $(MAKE) compile
+
 run:
 	@echo Uruchomienie programu 1
+	cd $(JAJKO) && $(MAKE) load
 	./executables/prog1.out
 
 clean:
 	@echo Usuwam pliki binarne
 	rm -v ./compiled/*.o 
 	rm -v ./executables/*.out
-	

@@ -86,6 +86,5 @@ int next_prime(int n) {
 	while(is_prime(k) == 0) {
 		k += 2;
 	}
-
 	return k;
 }

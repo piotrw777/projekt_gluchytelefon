@@ -4,12 +4,13 @@
 ****program4****
 ***************/
 
+void odbierz4(unsigned int  * liczba);
 void modyfikuj4(unsigned int liczba, unsigned int * wynik, char * string );
 bool read_bit(unsigned int * n, int position);
 void reverse_bits(unsigned int * n);
 void print_bits(unsigned int * n);
 
-int main(int argc, char *argv[]) {
+int main(void) {
     //deklaracje
     unsigned int liczba;
 	unsigned int wynik;
@@ -18,8 +19,7 @@ int main(int argc, char *argv[]) {
     powitanie(4,20);
 
     //wczytujemy liczbę
-	liczba = atoi(argv[1]);
-
+    odbierz4(&liczba);
 	//modyfikacja liczby
     modyfikuj4(liczba, &wynik, string_wynik);
 
@@ -34,7 +34,21 @@ int main(int argc, char *argv[]) {
 	run_prog_with_args("executables/prog5.out",string_wynik);
 	return 0;
 }
-
+void odbierz4(unsigned int  * liczba) {
+    int fd;
+    char buffer[10];
+    fd = open(chardev_path, O_RDONLY);
+    if (fd < 0) {
+        perror("Błąd otwarcia urządzenia CHARDEV");
+        exit(0);
+    }
+    if ( read(fd, buffer, sizeof(buffer) < 0) ){
+        perror("Błąd czytania z  chardev");
+        exit(0);
+    }
+    close(fd);
+    *liczba = atoi(buffer);
+}
 bool read_bit(unsigned int * n, int position) {
 	return !!(*n & (1 << position));
 }

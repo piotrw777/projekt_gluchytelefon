@@ -15,5 +15,3 @@ int main() {
 
     send_by_localhost(wynik, 6, PORT_B);
 }
-
-
