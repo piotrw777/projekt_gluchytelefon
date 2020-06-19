@@ -1,6 +1,8 @@
 #ifndef __FUNKCJE_POM
 #define __FUNKCJE_POM
 
+#define true 1
+#define false 0
 #define UINT_MAX_STR "4294967295"
 #define PORT_A "6000"
 #define PORT_B "7000"
@@ -15,6 +17,8 @@
 #define ORANGE "\x1b[33m"
 #define YELLOW "\x1b[38;5;11m"
 #define BG_VIOLET "\x1b[48;5;57m"
+#define MAGENDA "\x1b[35m"
+#define BLUE "\033[1;34m"
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -37,6 +41,7 @@ typedef int bool;
 char * opis[7];
 void powitanie(int numer_prog, int stars);
 void komunikat(int numer, unsigned int liczba, unsigned int wynik);
+bool leq(const char *a, const  char *b);
 void run_prog_with_args(char program[], char  argument[]);
 void run_prog_with_opt(char program[], char opcja[], char  argument[]);
 int parseCmdOption(int argc, char *argv[]);

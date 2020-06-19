@@ -6,18 +6,40 @@ void powitanie(int numer_prog, int stars) {
 	int k;
 	printf("\n\n");
 	for(k = 0; k < stars; k++) {
-		printf(ORANGE"*");
+		printf(RED"*");
 	}
-	printf("\nWitam w programie %d!\n" RESET, numer_prog);
+	printf("\nWitam w programie %d!\n" , numer_prog);
 	for(k = 0; k < stars; k++) {
 		printf("*");
 	}
-	printf("\n\n");
+	printf(RESET"\n\n");
 }
+
 void komunikat(int numer, unsigned int liczba, unsigned int wynik) {
      printf(GREEN "Podałeś liczbę %u\n" RESET,liczba);
-     printf("Liczba po modyfikacji: %u %s\n", wynik, opis[numer]);
+     printf(YELLOW "Liczba po modyfikacji: %u %s\n\n" RESET, wynik, opis[numer]);
 }
+
+bool leq(const char *a, const  char *b) {
+    if( (a[0] == '-') && (b[0] == '-') ) return leq(b + 1, a + 1);
+    if( (a[0] == '-') && (b[0] != '-') ) return true;
+    if( (a[0] != '-') && (b[0] == '-') ) return false;
+
+    a +=  (a[0] == '+');
+    b +=  (b[0] == '+');
+
+    int len_a = strlen(a);
+    int len_b = strlen(b);
+    if(len_a < len_b) return true;
+    if(len_a > len_b) return false;
+
+    while( (*a == *b) && *a != '\0') {
+        a += 1;
+        b += 1;
+    }
+    return (*a <= *b);
+}
+
 void run_prog_with_args(char program[], char  argument[]) {
 	char string_wywolania[50]="./";
 	char * wsk_pom = string_wywolania + strlen(string_wywolania);
@@ -154,8 +176,8 @@ void send_by_localhost(const int number, int program, char * NR_PORTU) {
 		exit(1);
 	}
     if( program == 6 ) {
-        printf("\nSerwer dziala.\nAby odebrać komunikat, uruchom drugą konsolę i wykonaj polecenie: ");
-        printf("telnet localhost %s\n", NR_PORTU);
+        printf(BG_VIOLET"\nSerwer dziala.\nAby odebrać komunikat, uruchom drugą konsolę i wykonaj polecenie: ");
+        printf("telnet localhost %s"RESET"\n", NR_PORTU);
     }
 
 	addrlen = sizeof(struct sockaddr_in);

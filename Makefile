@@ -65,7 +65,6 @@ module:
 
 run:
 	@echo Uruchomienie programu 1
-	cd $(JAJKO) && $(MAKE) load
 	./executables/prog1.out
 
 clean:
