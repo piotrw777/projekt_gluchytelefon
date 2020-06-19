@@ -1,3 +1,6 @@
 
 *.o
 *.out
+modul_jajko/.cache.mk
+modul_jajko/.jajko.o.cmd
+modul_jajko/jajko.o.rc
