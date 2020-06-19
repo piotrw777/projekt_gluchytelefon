@@ -191,9 +191,9 @@ void send_by_localhost(const int number, int program, char * NR_PORTU) {
 	}
 
 	if(program == 6) {
-        char komunikat[1024] = "\nWiadomość od serwera programu nr 6: ";
+        char komunikat[1024] = BOLD_GREEN"\nWiadomość od serwera programu nr 6: ";
         strcat(komunikat, string_wynik);
-        strcat(komunikat, "\n***********\n");
+        strcat(komunikat, "\n***********\n"RESET);
         if (send(gniazdo2, komunikat, sizeof(komunikat), 0) == -1) {
             perror("Błąd send");
             close(gniazdo2);

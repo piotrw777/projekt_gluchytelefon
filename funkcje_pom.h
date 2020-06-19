@@ -19,6 +19,7 @@
 #define BG_VIOLET "\x1b[48;5;57m"
 #define MAGENDA "\x1b[35m"
 #define BLUE "\033[1;34m"
+#define BOLD_GREEN "\033[1;32m"
 
 #include <arpa/inet.h>
 #include <errno.h>
