@@ -69,7 +69,6 @@ void odbierz1(unsigned int * liczba) {
             fflush(stdin);
             scanf("%s", string_wej);
             status_str = is_number(string_wej);
-            printf("Podałeś: %s\n", string_wej);
             if(status_str == 0) {
                 printf("Wpisany string nie jest liczbą");
             }
