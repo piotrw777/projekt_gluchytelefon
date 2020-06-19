@@ -9,6 +9,7 @@ bool is_number(const char *string);
 void odbierz1(unsigned int * liczba);
 void modyfikuj1(unsigned int liczba, unsigned int * wynik, char * string );
 
+
 int main(void) {
     //deklaracje
 	unsigned int liczba;
