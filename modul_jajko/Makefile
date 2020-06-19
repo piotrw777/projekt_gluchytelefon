@@ -1,8 +1,13 @@
-obj-m+=ebbchar.o
+obj-m+=jajko.o
 
-all:
+all:	unload compile load
+
+compile:
 	make -C /lib/modules/$(shell uname -r)/build/ M=$(PWD) modules
-	$(CC) testebbchar.c -o test
-clean:
+
+clean:	unload
 	make -C /lib/modules/$(shell uname -r)/build/ M=$(PWD) clean
-	rm test
+unload:
+	-sudo rmmod jajko.ko
+load:
+	-sudo insmod jajko.ko

@@ -3,6 +3,8 @@ JAJKO=modul_jajko
 
 all:	prog1.out prog2.out prog3.out prog4.out prog5.out prog6.out module
 
+apps:   prog1.out prog2.out prog3.out prog4.out prog5.out prog6.out
+
 prog1.out:	prog1.o funkcje_pom.o
 	@echo Linkowanie programu 1
 	gcc $(CFLAGS)   ./compiled/prog1.o ./compiled/funkcje_pom.o -o ./executables/prog1.out 
@@ -59,7 +61,7 @@ funkcje_pom.o:	funkcje_pom.c funkcje_pom.h
 	gcc $(CFLAGS) -c funkcje_pom.c -o ./compiled/funkcje_pom.o 
 
 module:
-	cd $(JAJKO) && $(MAKE) compile
+	cd $(JAJKO) && $(MAKE) 
 
 run:
 	@echo Uruchomienie programu 1

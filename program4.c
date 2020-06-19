@@ -10,6 +10,8 @@ bool read_bit(unsigned int * n, int position);
 void reverse_bits(unsigned int * n);
 void print_bits(unsigned int * n);
 
+static char buffer[10];
+
 int main(void) {
     //deklaracje
     unsigned int liczba;
@@ -36,7 +38,6 @@ int main(void) {
 }
 void odbierz4(unsigned int  * liczba) {
     int fd;
-    char buffer[10];
     fd = open(chardev_path, O_RDONLY);
     if (fd < 0) {
         perror("Błąd otwarcia urządzenia CHARDEV");
