@@ -5,9 +5,16 @@
 #define PORT_A "6000"
 #define PORT_B "7000"
 #define MAXDATASIZE 100
-#define SLEEP_TIME 2
+#define SLEEP_TIME 1
 #define fifo_path "/tmp/myfifo"
 #define chardev_path "/dev/jajko"
+
+#define RESET "\x1b[0m"
+#define RED "\x1b[31m"
+#define GREEN "\x1b[32m"
+#define ORANGE "\x1b[33m"
+#define YELLOW "\x1b[38;5;11m"
+#define BG_VIOLET "\x1b[48;5;57m"
 
 #include <arpa/inet.h>
 #include <errno.h>

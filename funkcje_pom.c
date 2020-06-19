@@ -6,16 +6,16 @@ void powitanie(int numer_prog, int stars) {
 	int k;
 	printf("\n\n");
 	for(k = 0; k < stars; k++) {
-		printf("*");
+		printf(ORANGE"*");
 	}
-	printf("\nWitam w programie %d!\n", numer_prog);
+	printf("\nWitam w programie %d!\n" RESET, numer_prog);
 	for(k = 0; k < stars; k++) {
 		printf("*");
 	}
 	printf("\n\n");
 }
 void komunikat(int numer, unsigned int liczba, unsigned int wynik) {
-     printf("Podałeś liczbę %u\n",liczba);
+     printf(GREEN "Podałeś liczbę %u\n" RESET,liczba);
      printf("Liczba po modyfikacji: %u %s\n", wynik, opis[numer]);
 }
 void run_prog_with_args(char program[], char  argument[]) {
