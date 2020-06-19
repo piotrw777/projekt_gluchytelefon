@@ -17,6 +17,7 @@ int main(void) {
 
 	powitanie(1,20);
 
+
    /* //test leq
     char a[20];
     char b[20];
