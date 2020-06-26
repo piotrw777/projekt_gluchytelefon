@@ -15,12 +15,11 @@ int main(int argc, char *argv[]) {
     char string_wynik[10];
     //odczytujemy file descriptor
     int read_fd = atoi(argv[1]);
-    
+	
+    //odbieramy liczbę
     odbierz5(&liczba, read_fd);   
 	
     powitanie(5,20);
-
-    //odbieramy liczbę
 
     //modyfikacja
     modyfikuj5(liczba, &wynik, string_wynik);
