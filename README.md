@@ -2,11 +2,13 @@
 projekt na zaliczenie przedmiotu Wstęp do programowania systemowego w Linux
 
 kompilacja - polecenie  make (kompiluje aplikacje oraz moduł jajko)
+
 uruchomienie - make run (uruchamia moduł jajko.ko oraz program1)
 
 UWAGA: Z powodu nieznanego błędu coredump przy próbie implementacji NETLINKA zastosowałem nienazwany pipe w komunikacji między programem 4 a programem 5
 
 Piotr Wasilewski
+
 wp48623@zut.edu.pl
 
 opis projektu:
