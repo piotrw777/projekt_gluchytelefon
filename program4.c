@@ -1,16 +1,18 @@
 #include "funkcje_pom.h"
+#include <sys/wait.h>
 
 /***************
 ****program4****
 ***************/
 
 void odbierz4(unsigned int  * liczba);
+void wyslij4(const char * text);
 void modyfikuj4(unsigned int liczba, unsigned int * wynik, char * string );
 bool read_bit(unsigned int * n, int position);
 void reverse_bits(unsigned int * n);
 void print_bits(unsigned int * n);
 
-static char buffer[10];
+static char buffer[128];
 
 int main(void) {
     //deklaracje
@@ -30,12 +32,11 @@ int main(void) {
     print_bits(&liczba);
     printf("Liczba wyjściowa w postaci binarnej:\n");
     print_bits(&wynik);
+    wyslij4(string_wynik);
 
-    printf("Uruchamiam program 5 z argumentem %d\n", wynik);
-    sleep(SLEEP_TIME);
-	run_prog_with_args("executables/prog5.out",string_wynik);
 	return 0;
 }
+
 void odbierz4(unsigned int  * liczba) {
     int fd;
     fd = open(chardev_path, O_RDONLY);
@@ -49,6 +50,38 @@ void odbierz4(unsigned int  * liczba) {
     }
     close(fd);
     *liczba = atoi(buffer);
+}
+void wyslij4(const char * text) {
+    int fd[2];
+    char pipe_fd_str[32];
+    char  wiadomosc[32];
+    strcpy(wiadomosc, text);
+    
+    pipe(fd);
+    pid_t pid = fork();
+    
+    if(pid == -1) {
+        perror("fork error");
+        exit(-1);
+    }
+    else if (pid == 0) {
+        //jestem dzieckiem
+        close(fd[0]);
+        sleep(SLEEP_TIME);
+        printf("Zapisuję wiadomość %s o rozmiarze %lu do pipe\n", wiadomosc, sizeof(wiadomosc));
+        if( write( fd[1],wiadomosc, sizeof(wiadomosc) ) == -1 ) {
+            perror("error in write");
+        }
+        close(fd[1]);
+    }
+    else {
+        //jestem rodzicem
+        close(fd[1]);
+        sprintf(pipe_fd_str, "%d", fd[0]);
+        //dup2(fd[0], STDIN_FILENO);
+        printf("Uruchamiam program 5 z argumentem %s\n", text);
+        execl("executables/prog5.out","prog5.out",pipe_fd_str, NULL);
+    }
 }
 bool read_bit(unsigned int * n, int position) {
 	return !!(*n & (1 << position));

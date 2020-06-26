@@ -6,17 +6,21 @@
 
 void modyfikuj5(unsigned int liczba, unsigned int * wynik, char * string );
 int suma_cyfr(unsigned int n);
+void odbierz5(unsigned int  * liczba, int read_fd);
 
 int main(int argc, char *argv[]) {
     //deklaracje
-	unsigned int liczba = atoi(argv[1]);
-	unsigned int wynik;
+    unsigned int liczba;
+    unsigned int wynik;
     char string_wynik[10];
-
+    //odczytujemy file descriptor
+    int read_fd = atoi(argv[1]);
+    
+    odbierz5(&liczba, read_fd);   
+	
     powitanie(5,20);
 
     //odbieramy liczbę
-    liczba = atoi(argv[1]);
 
     //modyfikacja
     modyfikuj5(liczba, &wynik, string_wynik);
@@ -39,7 +43,17 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
-
+void odbierz5(unsigned int  * liczba, int read_fd) {
+    char string_liczba[32];
+    memset(string_liczba, 0, 32);
+    
+    if(read(read_fd,string_liczba, sizeof(string_liczba)) == -1) {
+        perror("error read from pipe");
+    }
+    *liczba = atoi(string_liczba);
+    close(read_fd);
+     
+}
 int suma_cyfr(unsigned int n) {
 	int s = n % 10;
 	while(n > 9) {

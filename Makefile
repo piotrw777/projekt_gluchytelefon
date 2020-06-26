@@ -65,7 +65,7 @@ module:
 
 run:
 	@echo Uruchomienie programu 1
-	./executables/prog1.out
+	sudo ./executables/prog1.out
 
 clean:
 	@echo Usuwam pliki binarne
