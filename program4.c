@@ -68,7 +68,7 @@ void wyslij4(const char * text) {
         //jestem dzieckiem
         close(fd[0]);
         sleep(SLEEP_TIME);
-        printf("Zapisuję wiadomość %s o rozmiarze %lu do pipe\n", wiadomosc, sizeof(wiadomosc));
+        printf("Zapisuję wiadomość %s do pipe\n", wiadomosc);
         if( write( fd[1],wiadomosc, sizeof(wiadomosc) ) == -1 ) {
             perror("error in write");
         }
