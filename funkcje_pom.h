@@ -39,7 +39,7 @@
 
 typedef int bool;
 
-char * opis[7];
+extern char * opis[7];
 void powitanie(int numer_prog, int stars);
 void komunikat(int numer, unsigned int liczba, unsigned int wynik);
 bool leq(const char *a, const  char *b);
