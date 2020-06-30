@@ -67,7 +67,14 @@ run:
 	@echo Uruchomienie programu 1
 	sudo ./executables/prog1.out
 
-clean:
+cleanapps:
 	@echo Usuwam pliki binarne
 	rm -v ./compiled/*.o 
 	rm -v ./executables/*.out
+	
+cleanmod:
+	@echo Usuwam moduł jajko
+	cd $(JAJKO) && $(MAKE) clean
+	
+clean:	cleanapps cleanmod
+	
